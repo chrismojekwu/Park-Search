@@ -39,19 +39,16 @@ function parkInfo(parkData){
     let url = ""
 
     for(let i = 0; i < parkData.length; i++){
-        //console.log(data[i])
-
         name = parkData[i].fullName;
         info = parkData[i].description;
         url = parkData[i].url;
-        //$('.parkinfo').empty();
-        //console.log(name,info,url);
+        
         displayInfo(name,info,url);
     }
 };
 
 function displayInfo(name,info,url){
-    //$('.parkinfo').empty();
+    
     list++;
     let string =`<h1>${list}. ${name}</h1> <p>${info} <p><h2>Website: <a href="${url}">${url}</a></h2>`
     $('.parkinfo').append(string);
