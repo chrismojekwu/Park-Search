@@ -11,7 +11,7 @@ function findParks(){
      alert('Please enter a state code, or abbreviation.')
        return false;
    }
-   createStates(state,limit);
+   createQuery(state,limit);
    
    $('.parkinfo').empty();
    list = 0;
@@ -19,12 +19,17 @@ function findParks(){
   })
 };
 
-function createStates(state,limit){
+function createQuery(state,limit){
     let stateString = state.split(",").map(x => `${x}%2C`);
-     let state2 = stateString.join("").slice(0,-3);
-     console.log(state2)
-   
-    let target =`https://developer.nps.gov/api/v1/parks?&stateCode=${state2}&limit=${limit}&api_key=QlUtkpERocdZbPNgEN4PG9igQgsqdyiyySfcbtIJ`;
+    let state2 = stateString.join("").slice(0,-3);
+    console.log(state2)
+    const apiKey = "QlUtkpERocdZbPNgEN4PG9igQgsqdyiyySfcbtIJ" 
+    let target =`https://developer.nps.gov/api/v1/parks?&stateCode=${state2}&limit=${limit}&api_key=`+ apiKey; 
+    createStates(target)
+}
+
+function createStates(target){
+    
     
     console.log(target)
     fetch(target)
@@ -47,15 +52,11 @@ function createStates(state,limit){
 
 function parkInfo(parkData){
     
-    
-
     let name = ""
     let info = ""
     let web = ""
     let states = ""
     for(let i = 0; i < parkData.length; i++){
-        
-
         name = parkData[i].fullName;
         info = parkData[i].description;
         web = parkData[i].url;
@@ -66,7 +67,6 @@ function parkInfo(parkData){
 };
 
 function displayInfo(name,info,web,states){
-    
     list++;
     let corrected = states.split(",").join(" - ")
     let string =`<h1>${list}. ${name}, ${corrected} </h1> <p>${info} <p><h2>Website: <a href="${web}">${web}</a></h2>`
