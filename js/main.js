@@ -2,10 +2,6 @@
 
 let list = 0;
 
-
-
-
-
 function findParks(){
  $('.button').on('click', e => {
     
